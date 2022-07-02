@@ -20,6 +20,20 @@ $payments_schema = array(
 			'type'     => 'boolean',
 			'required' => true,
 		),
+		'currency'   => array(
+			'type'       => 'object',
+			'required'   => true,
+			'properties' => array(
+				'code'       => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+				'symbol_pos' => array(
+					'type'     => 'string',
+					'required' => true,
+				),
+			),
+		),
 		'models'  => array(
 			'type'                 => 'object',
 			'required'             => true,
@@ -48,20 +62,6 @@ $payments_schema = array(
 										'enum' => array( 'day', 'week', 'month', 'year' ),
 									),
 								),
-							),
-						),
-					),
-					'currency'   => array(
-						'type'       => 'object',
-						'required'   => true,
-						'properties' => array(
-							'code'       => array(
-								'type'     => 'string',
-								'required' => true,
-							),
-							'symbol_pos' => array(
-								'type'     => 'string',
-								'required' => true,
 							),
 						),
 					),

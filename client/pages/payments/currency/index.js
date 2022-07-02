@@ -18,12 +18,9 @@ import { css } from 'emotion';
 /**
  * Internal Dependencies
  */
-import { usePaymentsContext } from '../../../state/context';
+import { usePaymentsContext } from '../state/context';
 
-const Currency = ( { id } ) => {
-	const { models, updateModel } = usePaymentsContext();
-	const model = models[ id ];
-
+const Currency = ( { value, onUpdate } ) => {
 	const Currencies = ConfigApi.getCurrencies();
 	const CurrencyOptions = [];
 	for ( const [ key, currency ] of Object.entries( Currencies ) ) {
@@ -32,7 +29,7 @@ const Currency = ( { id } ) => {
 			name: currency.name,
 		} );
 	}
-	const CurrencySymbol = Currencies[ model.currency.code ].symbol;
+	const CurrencySymbol = Currencies[ value.code ].symbol;
 	const CurrencySymbolPosOptions = [
 		{
 			key: 'left',
@@ -72,22 +69,16 @@ const Currency = ( { id } ) => {
 						` }
 						options={ CurrencyOptions }
 						value={ CurrencyOptions.find(
-							( option ) => option.key === model.currency.code
+							( option ) => option.key === value.code
 						) }
 						onChange={ ( { selectedItem } ) => {
 							if ( selectedItem ) {
-								updateModel(
-									id,
-									{
-										currency: {
-											code: selectedItem.key,
-											symbol_pos:
-												Currencies[ selectedItem.key ]
-													.symbol_pos,
-										},
-									},
-									'recursive'
-								);
+								onUpdate( {
+									code: selectedItem.key,
+									symbol_pos:
+										Currencies[ selectedItem.key ]
+											.symbol_pos,
+								} );
 							}
 						} }
 					/>
@@ -112,21 +103,14 @@ const Currency = ( { id } ) => {
 						options={ CurrencySymbolPosOptions }
 						value={
 							CurrencySymbolPosOptions.find(
-								( option ) =>
-									option.key === model.currency.symbol_pos
+								( option ) => option.key === value.symbol_pos
 							) ?? CurrencySymbolPosOptions[ 0 ]
 						}
 						onChange={ ( { selectedItem } ) => {
 							if ( selectedItem ) {
-								updateModel(
-									id,
-									{
-										currency: {
-											symbol_pos: selectedItem.key,
-										},
-									},
-									'recursive'
-								);
+								onUpdate( {
+									symbol_pos: selectedItem.key,
+								} );
 							}
 						} }
 					/>

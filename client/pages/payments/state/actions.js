@@ -10,6 +10,7 @@ import {
 	UPDATE_PRODUCT,
 	DELETE_PRODUCT,
 	SET_ERRORS,
+	SET_CURRENCY,
 } from './constants';
 
 export default ( dispatch ) => {
@@ -17,6 +18,12 @@ export default ( dispatch ) => {
 		setEnabled: ( value ) => {
 			dispatch( {
 				type: SET_ENABLED,
+				value,
+			} );
+		},
+		setCurrency: ( value ) => {
+			dispatch( {
+				type: SET_CURRENCY,
 				value,
 			} );
 		},

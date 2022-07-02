@@ -29,6 +29,7 @@ import Models from './models';
 import Products from './products';
 import { getInitialState } from './utils';
 import { PaymentsContextProvider } from './state/context';
+import Currency from './currency';
 
 const PaymentsPage = ( { params } ) => {
 	const formId = params.id;
@@ -38,7 +39,7 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { enabled, models, products, errors } = state;
+	const { enabled, currency, models, products, errors } = state;
 	const $actions = actions( dispatch );
 
 	// data selectors.
@@ -135,6 +136,7 @@ const PaymentsPage = ( { params } ) => {
 			data: {
 				payments: {
 					enabled,
+					currency,
 					models,
 				},
 				products,
@@ -247,6 +249,10 @@ const PaymentsPage = ( { params } ) => {
 								/>
 							</ControlWrapper>
 						</BaseControl>
+						<Currency
+							value={ currency }
+							onUpdate={ ( val ) => $actions.setCurrency( val ) }
+						/>
 					</div>
 
 					<Models />

@@ -13,6 +13,7 @@ import { mergeWith, isArray, omit } from 'lodash';
  */
 import {
 	SET_ENABLED,
+	SET_CURRENCY,
 	ADD_MODEL,
 	UPDATE_MODEL,
 	DELETE_MODEL,
@@ -34,6 +35,26 @@ const enabled = ( state = false, action ) => {
 	switch ( action.type ) {
 		case SET_ENABLED: {
 			return action.value;
+		}
+	}
+	return state;
+};
+
+/**
+ * Reducer returning the state.
+ *
+ * @param {Object} state  Current state.
+ * @param {Object} action Dispatched action.
+ *
+ * @return {Object} Updated state.
+ */
+const currency = ( state = false, action ) => {
+	switch ( action.type ) {
+		case SET_CURRENCY: {
+			return {
+				...state,
+				...action.value,
+			};
 		}
 	}
 	return state;
@@ -156,6 +177,7 @@ const errors = ( state = {}, action ) => {
 
 const CombinedReducer = combineReducers( {
 	enabled,
+	currency,
 	models,
 	products,
 	errors,
