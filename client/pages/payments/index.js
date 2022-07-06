@@ -39,7 +39,14 @@ const PaymentsPage = ( { params } ) => {
 
 	// component state.
 	const [ state, dispatch ] = useReducer( reducer, getInitialState() );
-	const { enabled, currency, models, products, errors } = state;
+	const {
+		enabled,
+		currency,
+		multipleModels,
+		models,
+		products,
+		errors,
+	} = state;
 	const $actions = actions( dispatch );
 
 	// data selectors.
@@ -238,21 +245,27 @@ const PaymentsPage = ( { params } ) => {
 				<div className="quillforms-payments-page-settings">
 					<div className="quillforms-payments-page-settings__general">
 						<h3> General Settings </h3>
-						<BaseControl>
-							<ControlWrapper orientation="horizontal">
-								<ControlLabel label="Enable Payments"></ControlLabel>
-								<ToggleControl
-									checked={ enabled }
-									onChange={ () =>
-										$actions.setEnabled( ! state.enabled )
-									}
-								/>
-							</ControlWrapper>
-						</BaseControl>
-						<Currency
-							value={ currency }
-							onUpdate={ ( val ) => $actions.setCurrency( val ) }
-						/>
+						<div className="quillforms-payments-page-settings__general-content">
+							<BaseControl>
+								<ControlWrapper orientation="horizontal">
+									<ControlLabel label="Enable Payments"></ControlLabel>
+									<ToggleControl
+										checked={ enabled }
+										onChange={ () =>
+											$actions.setEnabled(
+												! state.enabled
+											)
+										}
+									/>
+								</ControlWrapper>
+							</BaseControl>
+							<Currency
+								value={ currency }
+								onUpdate={ ( val ) =>
+									$actions.setCurrency( val )
+								}
+							/>
+						</div>
 					</div>
 
 					<Models />

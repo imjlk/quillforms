@@ -27,6 +27,7 @@ export default ( dispatch ) => {
 				value,
 			} );
 		},
+
 		addModel: ( id, model ) => {
 			dispatch( {
 				type: ADD_MODEL,
